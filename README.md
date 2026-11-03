@@ -1,14 +1,14 @@
-# 🍝 Philosophers
+# Philosophers
 
 > A classic multithreading and concurrency project in C using threads and mutexes to solve the Dining Philosophers problem. 42 School Project.
 
-## 📌 Overview
+## Overview
 
 **Philosophers** is a project designed to teach the fundamentals of concurrent programming, process/thread synchronization, and race condition prevention. 
 
 The goal is to simulate philosophers sitting around a table with a bowl of spaghetti in the middle. Philosophers alternate between **eating**, **thinking**, and **sleeping**. To eat, a philosopher must acquire two forks (represented by mutexes), one on their left and one on their right.
 
-## ✨ Features
+## Features
 
 - **Multithreading**: Each philosopher is represented by an independent thread (`pthread_create`).
 - **Mutex Synchronization**: Every fork is guarded by a mutex (`pthread_mutex_t`) to prevent data races and concurrent access.
@@ -59,7 +59,7 @@ Execute the binary with the following arguments:
 ./philo 4 410 200 200 7
 ```
 
-## 🛠️ Allowed Functions
+## Allowed Functions
 
 - `memset`, `printf`, `malloc`, `free`, `write`, `usleep`, `gettimeofday`
 - `pthread_create`, `pthread_detach`, `pthread_join`
