@@ -1,74 +1,66 @@
-This project has been created as part of the 42 curriculum by <tdelmas2>.
-Description
+# 🍝 Philosophers
 
-Le projet Philosophers est une introduction à la programmation concurrente en C, basée sur le célèbre problème des philosophes formulé par Edsger Dijkstra.
+> A classic multithreading and concurrency project in C using threads and mutexes to solve the Dining Philosophers problem. 42 School Project.
 
-L’objectif est de simuler plusieurs philosophes assis autour d’une table, alternant entre trois états :
+## 📌 Overview
 
-manger
-dormir
-réfléchir
+**Philosophers** is a project designed to teach the fundamentals of concurrent programming, process/thread synchronization, and race condition prevention. 
 
-Chaque philosophe a besoin de deux fourchettes pour manger, ce qui crée des problématiques classiques de concurrence :
+The goal is to simulate philosophers sitting around a table with a bowl of spaghetti in the middle. Philosophers alternate between **eating**, **thinking**, and **sleeping**. To eat, a philosopher must acquire two forks (represented by mutexes), one on their left and one on their right.
 
-race conditions
-deadlocks
-starvation
+## ✨ Features
 
-Le projet consiste à implémenter une solution robuste utilisant :
+- **Multithreading**: Each philosopher is represented by an independent thread (`pthread_create`).
+- **Mutex Synchronization**: Every fork is guarded by a mutex (`pthread_mutex_t`) to prevent data races and concurrent access.
+- **Precision Timing**: Custom millisecond-accurate sleep function (`usleep` wrapper with `gettimeofday`).
+- **Death Detection**: Real-time monitor thread to instantly log a philosopher's death if they starve.
+- **Race Condition-Free**: Clean state management with dedicated mutexes for logging and status checking.
 
-les threads POSIX (pthread)
-les mutex pour protéger les ressources partagées
+## ⚙️ Compilation & Installation
 
-Le programme doit garantir :
+Compile the project using the provided `Makefile`:
 
-l’absence de deadlock
-une gestion correcte du temps (time_to_die, time_to_eat, time_to_sleep)
-la détection de la mort d’un philosophe
-
-Instructions :
-
-Compilation
+```bash
+git clone git@github.com:your-username/philosophers.git
+cd philosophers/philo
 make
-Exécution
-./philo number_of_philosophers time_to_die time_to_eat time_to_sleep [number_of_times_each_philosopher_must_eat]
+```
 
-Exemple :
+The Makefile includes the standard 42 rules: `make`, `make clean`, `make fclean`, `make re`.
+
+## 🚀 Usage
+
+Execute the binary with the following arguments:
+
+```bash
+./philo number_of_philosophers time_to_die time_to_eat time_to_sleep [number_of_times_each_philosopher_must_eat]
+```
+
+### Parameters
+
+| Argument | Description |
+| :--- | :--- |
+| `number_of_philosophers` | The number of philosophers and forks on the table. |
+| `time_to_die` (in ms) | Time limit in milliseconds a philosopher can go without eating before dying. |
+| `time_to_eat` (in ms) | Time it takes for a philosopher to eat (holds two forks). |
+| `time_to_sleep` (in ms) | Time a philosopher spends sleeping after eating. |
+| `[number_of_times_each_philosopher_must_eat]` | *(Optional)* If all philosophers eat at least this many times, the simulation stops. |
+
+### Examples
+
+```bash
+# Example 1: Philosopher should die
+./philo 1 800 200 200
+
+# Example 2: Normal simulation (no one dies)
 ./philo 5 800 200 200
 
-Paramètres :
-number_of_philosophers : nombre de philosophes
-time_to_die : temps maximum sans manger (en ms)
-time_to_eat : durée d’un repas
-time_to_sleep : durée du sommeil
-[optional] number_of_times_each_philosopher_must_eat : nombre de repas requis
+# Example 3: Simulation stops after everyone eats 7 times
+./philo 4 410 200 200 7
+```
 
-Concepts clés :
-Multithreading avec pthread
-Mutex pour la synchronisation
-Gestion du temps précise (timestamp)
-Prévention des deadlocks
-Gestion de la starvation (non obligatoire mais observable)
+## 🛠️ Allowed Functions
 
-L'intelligence artificielle a ete utilise 
-comme aide pour ecrire ce Readme.
-
-Choix techniques :
-Un thread par philosophe
-Un mutex par fourchette
-Un mutex global pour l’écriture (éviter les outputs mélangés)
-Surveillance via un thread dédié (monitor)
-Horodatage basé sur gettimeofday
-
-Resources :
-Documentation & articles
-Codequoi - Threads, Mutex et Programmation Concurrente en C
-Utilisé pour comprendre :
-la création de threads (pthread_create)
-l’utilisation des mutex
-les bases de la synchronisation
-Dining Philosophers in C: From Theory to Practice (Medium)
-Utilisé pour :
-comprendre l’architecture globale du projet
-visualiser différentes stratégies d’implémentation
-mieux appréhender les problèmes de starvation
+- `memset`, `printf`, `malloc`, `free`, `write`, `usleep`, `gettimeofday`
+- `pthread_create`, `pthread_detach`, `pthread_join`
+- `pthread_mutex_init`, `pthread_mutex_destroy`, `pthread_mutex_lock`, `pthread_mutex_unlock`
