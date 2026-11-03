@@ -16,7 +16,7 @@ The goal is to simulate philosophers sitting around a table with a bowl of spagh
 - **Death Detection**: Real-time monitor thread to instantly log a philosopher's death if they starve.
 - **Race Condition-Free**: Clean state management with dedicated mutexes for logging and status checking.
 
-## ⚙️ Compilation & Installation
+## Compilation & Installation
 
 Compile the project using the provided `Makefile`:
 
@@ -28,7 +28,7 @@ make
 
 The Makefile includes the standard 42 rules: `make`, `make clean`, `make fclean`, `make re`.
 
-## 🚀 Usage
+## Usage
 
 Execute the binary with the following arguments:
 
